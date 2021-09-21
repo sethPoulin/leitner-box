@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import SingleCard from '@/views/SingleCard.vue'
+import Box from '@/views/Box.vue'
+import EditCard from '@/views/EditCard.vue'
 
 const routes = [
   {
@@ -8,12 +11,27 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/box/:id',
+    name: 'Box',
+    component: Box
+    //shows all cards, what's at what level, etc.
+  },
+  {
+    path: '/card/:id',
+    name: 'SingleCard',
+    component: SingleCard,
+    children: [  //use this pattern if you want edit to open on same screen as (or as a <dialog> on top of the Card view)
+      {
+        path: 'edit',   //card/39875sal/edit,
+        name: 'Edit',
+        component: EditCard
+      }
+    ]
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    component: null
   }
 ]
 
